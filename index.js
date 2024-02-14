@@ -28,8 +28,8 @@ function crearPuzzle(){
             pieza.setAttribute('ondragover', 'allowDrop(event)');
 
             containerGrid.appendChild(pieza);
-            
-            verificarPosicionCorrecta(pieza);
+
+            verificarPosicionCorrecta(pieza, ()=>piezasAcertadas++);
         }
     }
 }
@@ -89,96 +89,50 @@ function drop(event) {
     draggingCell = null;
 }
 
-function verificarPosicionCorrecta(pieza){
-    let numId = parseInt(pieza.id.replace('p',''));
-    console.log(numId);
+function verificarPosicionCorrecta(pieza, accion){
+    let esPosicionCorrecta = false;
+    
+    const numId = parseInt(pieza.id.replace('p',''));
+
     let posX = parseInt(getComputedStyle(pieza).backgroundPositionX.replace('%',''))/100;
     posX = posX === 0 ? posX : posX *(-1);
     let posY = parseInt(getComputedStyle(pieza).backgroundPositionY.replace('%',''))/100;
     posY = posY === 0 ? posY : posY *(-1);
     
-    let numPos = posY * 10 + posX;
-    console.log(numPos);
+    const numPos = posY * 10 + posX;
+    
     if(numId === numPos){
-        console.log("Coincidencia");
-        piezasAcertadas ++;
+        accion();
+        esPosicionCorrecta = true;
     }
+
+    return esPosicionCorrecta;
 }
 
 function esSacadoIncorrecto(celdaArrastrada, celdaObjetivo){
-    let sacadoIncorrecto = false;
-
-    let numId =parseInt(celdaArrastrada.id.replace('p',''));
-    
-    let posX = parseInt(getComputedStyle(celdaArrastrada).backgroundPositionX.replace('%',''))/100;
-    posX = posX === 0 ? posX : posX *(-1);
-    let posY = parseInt(getComputedStyle(celdaArrastrada).backgroundPositionY.replace('%',''))/100;
-    posY = posY === 0 ? posY : posY *(-1);
-
-    let numPos = posY * 10 + posX;
-
-    if(numId === numPos){
-        console.log("sacado incorrecto");
+    let sacadoIncorrecto = verificarPosicionCorrecta(celdaArrastrada, ()=>{
         piezasAcertadas --;
-        sacadoIncorrecto = true;
-    }
+    });
 
-    numId =parseInt(celdaObjetivo.id.replace('p',''));
-    
-    posX = parseInt(getComputedStyle(celdaObjetivo).backgroundPositionX.replace('%',''))/100;
-    posX = posX === 0 ? posX : posX *(-1);
-    posY = parseInt(getComputedStyle(celdaObjetivo).backgroundPositionY.replace('%',''))/100;
-    posY = posY === 0 ? posY : posY *(-1);
-
-    numPos = posY * 10 + posX;
-
-    if(numId === numPos){
-        console.log("sacado incorrecto");
+    sacadoIncorrecto = verificarPosicionCorrecta(celdaObjetivo, ()=>{
         piezasAcertadas --;
-        sacadoIncorrecto = true;
-    }
+    });
 
     return sacadoIncorrecto;
 }
 
-function verificarIntercambio(draggingCell, targetCell){
-    console.log(targetCell.id);
-    console.log(getComputedStyle(targetCell).backgroundPosition);
-        
-    let numId = parseInt(targetCell.id.replace('p',''));
-    console.log(numId);
-
-    let posX = parseInt(getComputedStyle(targetCell).backgroundPositionX.replace('%',''))/100;
-    posX = posX === 0 ? posX : posX *(-1);
-    let posY = parseInt(getComputedStyle(targetCell).backgroundPositionY.replace('%',''))/100;
-    posY = posY === 0 ? posY : posY *(-1);
-
-    let numPos = posY * 10 + posX;
-    console.log(numPos);
-
-    if(numId === numPos){
+function verificarIntercambio(celdaArrastrada, celdaObjetivo){
+    const accionPosicionCorrecta = () =>{
         piezasAcertadas ++;
         if(piezasAcertadas === maxPiezasAcertadas)
             console.log("PUZZLE COMPLETADO");
-    }
+    };
 
-    numId =parseInt(draggingCell.id.replace('p',''));
-    console.log('---------------');
-    console.log(numId);
-        
-    posX = parseInt(getComputedStyle(draggingCell).backgroundPositionX.replace('%',''))/100;
-    posX = posX === 0 ? posX : posX *(-1);
-    posY = parseInt(getComputedStyle(draggingCell).backgroundPositionY.replace('%',''))/100;
-    posY = posY === 0 ? posY : posY *(-1);
+    verificarPosicionCorrecta(celdaObjetivo, accionPosicionCorrecta);
 
-    numPos = posY * 10 + posX;
-    console.log(numPos);
+    verificarPosicionCorrecta(celdaArrastrada, accionPosicionCorrecta);
 
-    if(numId === numPos){
-        piezasAcertadas ++;
-        if(piezasAcertadas === maxPiezasAcertadas)
-            console.log("PUZZLE COMPLETADO");
-    }
+    
 }
 
 document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());
