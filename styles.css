@@ -43,8 +43,8 @@ body {
 }
 
 .pieza {
-    background: url('https://scontent.feze9-1.fna.fbcdn.net/v/t39.30808-6/273474103_1938050923049302_5737687626515996410_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=ckdjzN84bj0AX-cyyxq&_nc_ht=scontent.feze9-1.fna&oh=00_AfDmvQbTnGZ6Mh7oAIC6M7wesn2vYem-dspjAzhTy-QOIg&oe=65CF0016');
-    background-size: 200% 300%;
+    
+    /*background-size: 200% 300%;*/
     border: 1px solid red;
     cursor: grab;
     width: 100%;
@@ -53,4 +53,8 @@ body {
 
 .celda{
     border: 1px solid sandybrown;
+}
+
+.dragging {
+    opacity: 0.5;
 }
