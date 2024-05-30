@@ -38,6 +38,11 @@ function crearPuzzle(){
             pieza.setAttribute('ondrop', 'drop(event)');
             pieza.setAttribute('ondragover', 'allowDrop(event)');
 
+            //Para pantallas tactiles:
+            pieza.addEventListener('touchstart', startTouch);
+            pieza.addEventListener('touchmove', moveTouch);
+            pieza.addEventListener('touchend', endTouch);
+
             containerGrid.appendChild(pieza);
             
             verificarPosicionCorrecta(pieza, ()=>piezasAcertadas++);
@@ -95,6 +100,59 @@ function startDrag(event) {
 function allowDrop(event) {
     event.preventDefault();
 }
+//parte tactil
+function startTouch(event) {
+    draggingCell = event.target;
+    event.preventDefault();
+
+    // Obtén la posición del dedo táctil en relación con la posición actual del elemento
+    const touch = event.touches[0];
+    const offsetX = touch.clientX - draggingCell.getBoundingClientRect().left;
+    const offsetY = touch.clientY - draggingCell.getBoundingClientRect().top;
+
+    // Guarda las posiciones iniciales
+    draggingCell.initialX = touch.clientX - offsetX;
+    draggingCell.initialY = touch.clientY - offsetY;
+
+    draggingCell.classList.add('dragging');
+
+    // Establece las posiciones iniciales left y top del elemento arrastrado
+    draggingCell.style.left = draggingCell.initialX + 'px';
+    draggingCell.style.top = draggingCell.initialY + 'px';
+    
+}
+
+function moveTouch(event) {
+    if (draggingCell) {
+        event.preventDefault();
+        const touch = event.touches[0];
+
+        // Calcula la posición actual del elemento arrastrado en relación con la posición del dedo táctil
+        const offsetX = touch.clientX - draggingCell.offsetWidth / 2;
+        const offsetY = touch.clientY - draggingCell.offsetHeight / 2;
+
+        // Actualiza las propiedades left y top del elemento arrastrado
+        draggingCell.style.left = offsetX + 'px';
+        draggingCell.style.top = offsetY + 'px';
+    }
+    
+}
+
+function endTouch(event) {
+    if (draggingCell) {
+        event.preventDefault();
+        const targetCell = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+
+        if (targetCell && targetCell.classList.contains('pieza')) {
+            drop(targetCell);
+        }
+
+        draggingCell.style.left = '';
+        draggingCell.style.top = '';
+        draggingCell.classList.remove('dragging');
+        draggingCell = null;
+    }
+}   //Fin de parte tactil
 
 function drop(event) {
     event.preventDefault();
