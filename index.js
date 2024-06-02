@@ -34,10 +34,10 @@ function crearPuzzle(){
             
 
             pieza.setAttribute('draggable', 'true');
-            pieza.setAttribute('ondragstart', 'startDrag(event)');
+/*            pieza.setAttribute('ondragstart', 'startDrag(event)');
             pieza.setAttribute('ondrop', 'drop(event)');
             pieza.setAttribute('ondragover', 'allowDrop(event)');
-
+*/
             //Para pantallas tactiles:
             pieza.addEventListener('touchstart', startTouch);
             pieza.addEventListener('touchmove', moveTouch);
