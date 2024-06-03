@@ -241,19 +241,23 @@ function verificarIntercambio(celdaArrastrada, celdaObjetivo){
     
 }
 
-const modal = document.querySelector(".modal");
-const elemento = document.querySelector(".ver-imagen");
+const modal = document.querySelector(".modal-img-completa");
+const modalImagen = document.querySelector(".modal-container");
+const botonImagen = document.querySelector(".ver-imagen");
 
 function mostrarImagenCompleta(){
     modal.style.display = "block";
-    modal.style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
+    modalImagen.style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
     console.log("presionado");
 }
 
-elemento.addEventListener("click", mostrarImagenCompleta);
+botonImagen.addEventListener("click", mostrarImagenCompleta);
 
 function cerrarModal(){
     modal.style.display = "none";
 }
+
+document.querySelector(".close-modal").addEventListener("click", cerrarModal);
+modal.addEventListener("click", cerrarModal);
 
 document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());
