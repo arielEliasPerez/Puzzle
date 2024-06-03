@@ -14,6 +14,8 @@ function crearPuzzle(){
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
 
+    console.log("Commit 1");
+
     containerGrid.style.gridTemplate =`repeat(${3*nivel}, 1fr) / repeat(${2*nivel}, 1fr)`;
     //getComputedStyle(document.querySelector('.pieza')).backgroundSize = `${-posX*100}% ${-posY*100}%`;
     for(let i = 0; i<nivel*3; i++){
@@ -153,7 +155,7 @@ function endTouch(event) {
         draggingCell = null;
     }
 }   //Fin de parte tactil
-
+/*
 function drop(event) {
     //event.preventDefault();
     //const targetCell = event.target;
@@ -182,6 +184,28 @@ function drop(event) {
     //draggingCell.classList.remove('dragging');
     //draggingCell = null;
 }
+*/
+function drop(targetCell) {
+    if (draggingCell !== targetCell) {
+        const sacadoIncorrecto = esSacadoIncorrecto(draggingCell, targetCell);
+
+        const tempBackground = draggingCell.style.backgroundImage;
+        const tempPosition = getComputedStyle(draggingCell).backgroundPosition;
+
+        draggingCell.style.backgroundImage = targetCell.style.backgroundImage;
+        draggingCell.style.backgroundPosition = getComputedStyle(targetCell).backgroundPosition;
+
+        targetCell.style.backgroundImage = tempBackground;
+        targetCell.style.backgroundPosition = tempPosition;
+
+        draggingCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+        targetCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+
+        if(!sacadoIncorrecto)
+            verificarIntercambio(draggingCell, targetCell);
+    }
+}
+
 
 function verificarPosicionCorrecta(pieza, accion){
     let esPosicionCorrecta = false;
