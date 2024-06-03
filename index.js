@@ -155,8 +155,8 @@ function endTouch(event) {
 }   //Fin de parte tactil
 
 function drop(event) {
-    event.preventDefault();
-    const targetCell = event.target;
+    //event.preventDefault();
+    //const targetCell = event.target;
 
     // Intercambia el contenido solo si la celda de destino es diferente de la celda de origen
     if (draggingCell !== targetCell) {
@@ -179,8 +179,8 @@ function drop(event) {
     }
 
     // Restaura el estilo de arrastre
-    draggingCell.classList.remove('dragging');
-    draggingCell = null;
+    //draggingCell.classList.remove('dragging');
+    //draggingCell = null;
 }
 
 function verificarPosicionCorrecta(pieza, accion){
