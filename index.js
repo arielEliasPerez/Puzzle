@@ -24,7 +24,7 @@ function crearPuzzle(){
             pieza.className = 'pieza';
             cambiarBackground(pieza);
             pieza.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
-            //pieza.setAttribute('style', `backgroun-size: ${nivel*200}% ${nivel*300}%`); 
+            
             
 
             const pos = generarPosicionRandom();
