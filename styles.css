@@ -10,16 +10,23 @@ body {
     border: 2px solid blueviolet;
 }
 
+.container-elementos{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+}
+
 .ver-imagen{
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 15px;
+    display: inline-block;
+    margin-right: 20px;
     width: 200px;
-    height: 40px;
+    height: 45px;
     border-radius: 25px;
     background-color: rgb(157, 69, 240);
     font-weight: bold;
-    color: white;
+    font-size: medium;
+    color: rgb(63, 4, 60);
     cursor: pointer;
 }
 
@@ -61,17 +68,36 @@ body {
     cursor: pointer;
 }
 
+.container-contador{
+    display: inline-block;
+    margin-left: 20px;
+    background-color: rgba(43, 13, 70, 0.623);
+    border: 2px rgb(136, 76, 192);
+    border-radius: 10px;
+    border-style: inset;
+}
+
 p{
+    font-size: x-large;
+    font-weight: bold;
+    font-family: 'Lucida Sans Unicode';
     margin: 10px;
     display: inline;
     color: white;
 }
 
 .acertadas{
-    margin-top: 15px;
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
     display: inline;
     background-color: black;
     color: white;
+    font-size: x-large;
+    font-family: "Cascadia Code";
 }
 
 .container-9x16 {
