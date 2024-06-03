@@ -19,14 +19,14 @@ body {
 
 .ver-imagen{
     display: inline-block;
-    margin-right: 20px;
-    width: 200px;
-    height: 45px;
+    margin-right: 40px;
+    width: 215px;
+    height: 65px;
     border-radius: 25px;
     background-color: rgb(157, 69, 240);
     font-weight: bold;
-    font-size: medium;
-    color: rgb(63, 4, 60);
+    font-size: large;
+    color: rgb(240, 227, 239);
     cursor: pointer;
 }
 
@@ -70,7 +70,8 @@ body {
 
 .container-contador{
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 30px;
+    padding: 3px;
     background-color: rgba(43, 13, 70, 0.623);
     border: 2px rgb(136, 76, 192);
     border-radius: 10px;
@@ -78,7 +79,7 @@ body {
 }
 
 p{
-    font-size: x-large;
+    font-size: xx-large;
     font-weight: bold;
     font-family: 'Lucida Sans Unicode';
     margin: 10px;
@@ -96,7 +97,7 @@ p{
     display: inline;
     background-color: black;
     color: white;
-    font-size: x-large;
+    font-size: xx-large;
     font-family: "Cascadia Code";
 }
 
