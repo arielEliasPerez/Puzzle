@@ -1,7 +1,7 @@
 
 let nivel = 0;
-let posiciones = [];
-let piezasAcertadas = 0;
+let posiciones;
+let piezasAcertadas;
 let maxPiezasAcertadas = 6;
 let draggingCell = null;
 
@@ -15,7 +15,7 @@ function crearPuzzle(){
     containerGrid.innerHTML = '';
 
     containerGrid.style.gridTemplate =`repeat(${3*nivel}, 1fr) / repeat(${2*nivel}, 1fr)`;
-    //getComputedStyle(document.querySelector('.pieza')).backgroundSize = `${-posX*100}% ${-posY*100}%`;
+    
     for(let i = 0; i<nivel*3; i++){
         for(let j = 0; j<nivel*2; j++){
             
@@ -56,7 +56,6 @@ function cambiarBackground(pieza){
             pieza.style.backgroundImage = `url('images/nivel1.jpg')`;
             break;
         case 2:
-            console.log('adentro');
             pieza.style.backgroundImage = `url('images/nivel2.jpg')`;
             break;
         case 3:
@@ -144,7 +143,7 @@ function endTouch(event) {
         const targetCell = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
 
         if (targetCell && targetCell.classList.contains('pieza')) {
-            drop(targetCell);
+            realizarIntercambio(targetCell);
         }
 
         draggingCell.style.left = '';
@@ -158,14 +157,22 @@ function drop(event) {
     event.preventDefault();
     const targetCell = event.target;
 
+    realizarIntercambio(targetCell);
+
+    // Restaura el estilo de arrastre
+    draggingCell.classList.remove('dragging');
+    draggingCell = null;
+}
+
+function realizarIntercambio(targetCell) {
     // Intercambia el contenido solo si la celda de destino es diferente de la celda de origen
     if (draggingCell !== targetCell) {
         const sacadoIncorrecto = esSacadoIncorrecto(draggingCell, targetCell);
 
         const tempBackground = draggingCell.style.backgroundImage;
         const tempPosition = getComputedStyle(draggingCell).backgroundPosition;
-        
-        draggingCell.style.background = targetCell.style.backgroundImage;
+
+        draggingCell.style.backgroundImage = targetCell.style.backgroundImage;
         draggingCell.style.backgroundPosition = getComputedStyle(targetCell).backgroundPosition;
 
         targetCell.style.backgroundImage = tempBackground;
@@ -177,11 +184,8 @@ function drop(event) {
         if(!sacadoIncorrecto)
             verificarIntercambio(draggingCell, targetCell);
     }
-
-    // Restaura el estilo de arrastre
-    draggingCell.classList.remove('dragging');
-    draggingCell = null;
 }
+
 
 function verificarPosicionCorrecta(pieza, accion){
     let esPosicionCorrecta = false;
