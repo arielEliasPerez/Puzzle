@@ -14,6 +14,13 @@ body {
     display: block;
     margin-top: 20px;
     margin-bottom: 15px;
+    width: 200px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: rgb(157, 69, 240);
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
 }
 
 .modal{
@@ -28,13 +35,13 @@ body {
     
     border: 17px solid blueviolet;
     border-radius: 20px;
-    background-size: cover;
+    background-size: 100% 100%;
 }
 
 .close-modal {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 80px;
     font-weight: bold;
     cursor: pointer;
 }
