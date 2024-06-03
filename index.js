@@ -14,8 +14,6 @@ function crearPuzzle(){
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
 
-    console.log("Commit 1");
-
     containerGrid.style.gridTemplate =`repeat(${3*nivel}, 1fr) / repeat(${2*nivel}, 1fr)`;
     //getComputedStyle(document.querySelector('.pieza')).backgroundSize = `${-posX*100}% ${-posY*100}%`;
     for(let i = 0; i<nivel*3; i++){
@@ -36,10 +34,10 @@ function crearPuzzle(){
             
 
             pieza.setAttribute('draggable', 'true');
-/*            pieza.setAttribute('ondragstart', 'startDrag(event)');
+            pieza.setAttribute('ondragstart', 'startDrag(event)');
             pieza.setAttribute('ondrop', 'drop(event)');
             pieza.setAttribute('ondragover', 'allowDrop(event)');
-*/
+
             //Para pantallas tactiles:
             pieza.addEventListener('touchstart', startTouch);
             pieza.addEventListener('touchmove', moveTouch);
@@ -146,7 +144,7 @@ function endTouch(event) {
         const targetCell = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
 
         if (targetCell && targetCell.classList.contains('pieza')) {
-            drop(targetCell);
+            drop2(targetCell);
         }
 
         draggingCell.style.left = '';
@@ -155,10 +153,10 @@ function endTouch(event) {
         draggingCell = null;
     }
 }   //Fin de parte tactil
-/*
+
 function drop(event) {
-    //event.preventDefault();
-    //const targetCell = event.target;
+    event.preventDefault();
+    const targetCell = event.target;
 
     // Intercambia el contenido solo si la celda de destino es diferente de la celda de origen
     if (draggingCell !== targetCell) {
@@ -181,11 +179,11 @@ function drop(event) {
     }
 
     // Restaura el estilo de arrastre
-    //draggingCell.classList.remove('dragging');
-    //draggingCell = null;
+    draggingCell.classList.remove('dragging');
+    draggingCell = null;
 }
-*/
-function drop(targetCell) {
+
+function drop2(targetCell) {
     if (draggingCell !== targetCell) {
         const sacadoIncorrecto = esSacadoIncorrecto(draggingCell, targetCell);
 
