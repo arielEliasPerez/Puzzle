@@ -10,6 +10,8 @@ function crearPuzzle(){
     posiciones = [];
     piezasAcertadas = 0;
     maxPiezasAcertadas = nivel*nivel*6;
+    
+    const imagenPuzzle = obtenerImagenPuzzleSegunNivel(nivel);
 
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
@@ -22,9 +24,9 @@ function crearPuzzle(){
             const pieza = document.createElement('div');
             pieza.id = `p${i}${j}`;
             pieza.className = 'pieza';
-            cambiarBackground(pieza);
+            pieza.style.backgroundImage = imagenPuzzle;
             pieza.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
-            
+            //pieza.setAttribute('style', `backgroun-size: ${nivel*200}% ${nivel*300}%`); 
             
 
             const pos = generarPosicionRandom();
@@ -46,29 +48,31 @@ function crearPuzzle(){
             containerGrid.appendChild(pieza);
             
             verificarPosicionCorrecta(pieza, ()=>piezasAcertadas++);
+            document.querySelector(".acertadas").innerHTML = piezasAcertadas;
         }
     }
 }
 
-function cambiarBackground(pieza){
+function obtenerImagenPuzzleSegunNivel(nivel){
+    let imagenPuzzle;
     switch(nivel){
         case 1:
-            pieza.style.backgroundImage = `url('images/nivel1.jpg')`;
+            imagenPuzzle = `url('images/nivel1.jpg')`;
             break;
         case 2:
-            pieza.style.backgroundImage = `url('images/nivel2.jpg')`;
+            imagenPuzzle = `url('images/nivel2.jpg')`;
             break;
         case 3:
-            pieza.style.backgroundImage = "url('images/nivel3.jpg')";
+            imagenPuzzle = `url('images/nivel3.jpg')`;
             break;
         case 4:
-            pieza.style.backgroundImage = "url('images/nivel4.jpg')";
+            imagenPuzzle = `url('images/nivel4.jpg')`;
             break;
         default:
-            pieza.style.backgroundImage = "url('images/nivel5.jpg')";
+            imagenPuzzle = `url('images/nivel5.jpg')`;
     }
     
-
+    return imagenPuzzle;
 }
 
 function generarPosicionRandom(){    
@@ -184,6 +188,7 @@ function realizarIntercambio(targetCell) {
         if(!sacadoIncorrecto)
             verificarIntercambio(draggingCell, targetCell);
     }
+    document.querySelector(".acertadas").innerHTML = piezasAcertadas;
 }
 
 
@@ -234,6 +239,21 @@ function verificarIntercambio(celdaArrastrada, celdaObjetivo){
     verificarPosicionCorrecta(celdaArrastrada, accionPosicionCorrecta);
 
     
+}
+
+const modal = document.querySelector(".modal");
+const elemento = document.querySelector(".ver-imagen");
+
+function mostrarImagenCompleta(){
+    modal.style.display = "block";
+    modal.style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
+    console.log("presionado");
+}
+
+elemento.addEventListener("click", mostrarImagenCompleta);
+
+function cerrarModal(){
+    modal.style.display = "none";
 }
 
 document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());

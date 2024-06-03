@@ -10,6 +10,55 @@ body {
     border: 2px solid blueviolet;
 }
 
+.ver-imagen{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    max-width: 720px; /* ajusta según las necesidades */
+    max-height: 80vh;
+    margin: 0 auto;
+    height: 100vh; /* establece la altura al 100% de la altura de la pantalla */
+    
+    border: 17px solid blueviolet;
+    border-radius: 20px;
+    background-size: cover;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: rgba(146, 7, 7, 0.549);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+p{
+    margin: 10px;
+    display: inline;
+    color: white;
+}
+
+.acertadas{
+    margin-top: 15px;
+    display: inline;
+    background-color: black;
+    color: white;
+}
+
 .container-9x16 {
     position: relative;
     width: 100%;
