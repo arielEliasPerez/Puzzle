@@ -240,17 +240,17 @@ function verificarIntercambio(celdaArrastrada, celdaObjetivo){
 
 function puzzleCompletado(){
     document.querySelector(".container-9x16").style.borderColor = "yellowgreen";
-    document.querySelector(".completado").style.display = "block";
+    document.querySelector("#container-completado").style.display = "flex";
+    document.querySelector("#container-completado").style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
     const botonSiguienteNivel = document.querySelector("#btn-siguiente-nivel");
     
-    botonSiguienteNivel.style.display = "block";
     botonSiguienteNivel.addEventListener("click", avanzarDeNivel);
 }
 
 function avanzarDeNivel(){
     document.querySelector(".container-9x16").style.borderColor = "blueviolet";
-    document.querySelector(".completado").style.display = "none";
-    document.getElementById("btn-siguiente-nivel").style.display = "none";
+    document.querySelector("#container-completado").style.display = "none";
+    //document.getElementById("btn-siguiente-nivel").style.display = "none";
     crearPuzzle();
 }
 

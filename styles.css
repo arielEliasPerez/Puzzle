@@ -150,14 +150,23 @@ p{
     opacity: 0.5;
 }
 
-.completado{
+#container-completado{
     display: none;
-    position: absolute;
-    top: 45%;
-    text-align: center;
-    text-transform: capitalize;
+    flex-direction: column;
+    justify-content: space-around;
     
-    font-size: xx-large;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+}
+
+.completado{
+    display: block;
+    
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.247);
+    
+    font-size: 300%;
     
     color: aliceblue;
     font-weight: bolder;
@@ -170,16 +179,13 @@ p{
 }
 
 #btn-siguiente-nivel{
-    display: none;
-    position: absolute;
-    top: 60%;
-    left: 40%;
-    width: 30%;
-    height: 140px;
+    display: block;
+    align-self: center;
+    width: 50%;
+    height: 200px;
     font-size: 75px;
-    border-radius: 70px;
+    border-radius: 90px;
     background-color: greenyellow;
     
-    text-align: center;
     cursor: pointer;
 }
