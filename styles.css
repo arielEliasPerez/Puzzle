@@ -7,7 +7,7 @@ body {
 header{
     border-radius: 25px;
     background-color: blueviolet;
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 25px;
     box-shadow: 10px 5px 23px 5px rgba(0, 0, 0, 0.6), -15px 5px 13px rgba(0, 0, 0, 0.3);
 }
