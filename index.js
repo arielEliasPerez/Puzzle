@@ -227,19 +227,33 @@ function esSacadoIncorrecto(celdaArrastrada, celdaObjetivo){
 function verificarIntercambio(celdaArrastrada, celdaObjetivo){
     const accionPosicionCorrecta = () =>{
         piezasAcertadas ++;
-        if(piezasAcertadas === maxPiezasAcertadas)
-            {
-                console.log("PUZZLE COMPLETADO");
-                crearPuzzle()
+        if(piezasAcertadas === maxPiezasAcertadas){ 
+                puzzleCompletado();
             }
     };
 
     verificarPosicionCorrecta(celdaObjetivo, accionPosicionCorrecta);
 
     verificarPosicionCorrecta(celdaArrastrada, accionPosicionCorrecta);
-
-    
 }
+
+
+function puzzleCompletado(){
+    document.querySelector(".container-9x16").style.borderColor = "yellowgreen";
+    document.querySelector(".completado").style.display = "block";
+    const botonSiguienteNivel = document.querySelector("#btn-siguiente-nivel");
+    
+    botonSiguienteNivel.style.display = "block";
+    botonSiguienteNivel.addEventListener("click", avanzarDeNivel);
+}
+
+function avanzarDeNivel(){
+    document.querySelector(".container-9x16").style.borderColor = "blueviolet";
+    document.querySelector(".completado").style.display = "none";
+    document.getElementById("btn-siguiente-nivel").style.display = "none";
+    crearPuzzle();
+}
+
 
 const modal = document.querySelector(".modal-img-completa");
 const modalImagen = document.querySelector(".modal-container");
@@ -248,7 +262,6 @@ const botonImagen = document.querySelector(".ver-imagen");
 function mostrarImagenCompleta(){
     modal.style.display = "block";
     modalImagen.style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
-    console.log("presionado");
 }
 
 botonImagen.addEventListener("click", mostrarImagenCompleta);

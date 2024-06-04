@@ -1,4 +1,4 @@
-
+                        
 body {
     height: 100vh;
     background-color: rgb(80, 12, 143);
@@ -143,9 +143,43 @@ p{
 }
 
 .celda{
-    border: 1px solid sandybrown;
+    border: 1px solid transparent;
 }
 
 .dragging {
     opacity: 0.5;
+}
+
+.completado{
+    display: none;
+    position: absolute;
+    top: 45%;
+    text-align: center;
+    text-transform: capitalize;
+    
+    font-size: xx-large;
+    
+    color: aliceblue;
+    font-weight: bolder;
+    font-family: 'Permanent Marker', cursive;
+    text-shadow: 
+                -3px -1px 0 #000,  
+                3px -1px 0 #000,
+                -3px 1px 0 #000,
+                3px 1px 0 #000;
+}
+
+#btn-siguiente-nivel{
+    display: none;
+    position: absolute;
+    top: 60%;
+    left: 40%;
+    width: 30%;
+    height: 140px;
+    font-size: 75px;
+    border-radius: 70px;
+    background-color: greenyellow;
+    
+    text-align: center;
+    cursor: pointer;
 }
