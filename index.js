@@ -10,6 +10,8 @@ function crearPuzzle(){
     posiciones = [];
     piezasAcertadas = 0;
     maxPiezasAcertadas = nivel*nivel*6;
+
+    cambiarTituloNivel(nivel);
     
     const imagenPuzzle = obtenerImagenPuzzleSegunNivel(nivel);
 
@@ -51,6 +53,10 @@ function crearPuzzle(){
             document.querySelector(".acertadas").innerHTML = piezasAcertadas;
         }
     }
+}
+
+function cambiarTituloNivel(nivel){
+    document.getElementById("titulo-nivel").innerText = `Nivel ${nivel}`;
 }
 
 function obtenerImagenPuzzleSegunNivel(nivel){
