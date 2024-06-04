@@ -11,6 +11,10 @@ function crearPuzzle(){
     piezasAcertadas = 0;
     maxPiezasAcertadas = nivel*nivel*6;
 
+    cambiarTituloNivel(nivel);
+    
+    const imagenPuzzle = obtenerImagenPuzzleSegunNivel(nivel);
+
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
 
@@ -22,7 +26,7 @@ function crearPuzzle(){
             const pieza = document.createElement('div');
             pieza.id = `p${i}${j}`;
             pieza.className = 'pieza';
-            cambiarBackground(pieza);
+            pieza.style.backgroundImage = imagenPuzzle;
             pieza.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
             //pieza.setAttribute('style', `backgroun-size: ${nivel*200}% ${nivel*300}%`); 
             
@@ -46,29 +50,35 @@ function crearPuzzle(){
             containerGrid.appendChild(pieza);
             
             verificarPosicionCorrecta(pieza, ()=>piezasAcertadas++);
+            document.querySelector(".acertadas").innerHTML = piezasAcertadas;
         }
     }
 }
 
-function cambiarBackground(pieza){
+function cambiarTituloNivel(nivel){
+    document.getElementById("titulo-nivel").innerText = `Nivel ${nivel}`;
+}
+
+function obtenerImagenPuzzleSegunNivel(nivel){
+    let imagenPuzzle;
     switch(nivel){
         case 1:
-            pieza.style.backgroundImage = `url('images/nivel1.jpg')`;
+            imagenPuzzle = `url('images/nivel1.jpg')`;
             break;
         case 2:
-            pieza.style.backgroundImage = `url('images/nivel2.jpg')`;
+            imagenPuzzle = `url('images/nivel2.jpg')`;
             break;
         case 3:
-            pieza.style.backgroundImage = "url('images/nivel3.jpg')";
+            imagenPuzzle = `url('images/nivel3.jpg')`;
             break;
         case 4:
-            pieza.style.backgroundImage = "url('images/nivel4.jpg')";
+            imagenPuzzle = `url('images/nivel4.jpg')`;
             break;
         default:
-            pieza.style.backgroundImage = "url('images/nivel5.jpg')";
+            imagenPuzzle = `url('images/nivel5.jpg')`;
     }
     
-
+    return imagenPuzzle;
 }
 
 function generarPosicionRandom(){    
@@ -184,6 +194,7 @@ function realizarIntercambio(targetCell) {
         if(!sacadoIncorrecto)
             verificarIntercambio(draggingCell, targetCell);
     }
+    document.querySelector(".acertadas").innerHTML = piezasAcertadas;
 }
 
 
@@ -222,18 +233,50 @@ function esSacadoIncorrecto(celdaArrastrada, celdaObjetivo){
 function verificarIntercambio(celdaArrastrada, celdaObjetivo){
     const accionPosicionCorrecta = () =>{
         piezasAcertadas ++;
-        if(piezasAcertadas === maxPiezasAcertadas)
-            {
-                console.log("PUZZLE COMPLETADO");
-                crearPuzzle()
+        if(piezasAcertadas === maxPiezasAcertadas){ 
+                puzzleCompletado();
             }
     };
 
     verificarPosicionCorrecta(celdaObjetivo, accionPosicionCorrecta);
 
     verificarPosicionCorrecta(celdaArrastrada, accionPosicionCorrecta);
-
-    
 }
+
+
+function puzzleCompletado(){
+    document.querySelector(".container-9x16").style.borderColor = "yellowgreen";
+    document.querySelector("#container-completado").style.display = "flex";
+    document.querySelector("#container-completado").style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
+    const botonSiguienteNivel = document.querySelector("#btn-siguiente-nivel");
+    
+    botonSiguienteNivel.addEventListener("click", avanzarDeNivel);
+}
+
+function avanzarDeNivel(){
+    document.querySelector(".container-9x16").style.borderColor = "blueviolet";
+    document.querySelector("#container-completado").style.display = "none";
+    //document.getElementById("btn-siguiente-nivel").style.display = "none";
+    crearPuzzle();
+}
+
+
+const modal = document.querySelector(".modal-img-completa");
+const modalImagen = document.querySelector(".modal-container");
+const botonImagen = document.querySelector(".ver-imagen");
+
+function mostrarImagenCompleta(){
+    modal.style.display = "block";
+    modalImagen.style.backgroundImage = obtenerImagenPuzzleSegunNivel(nivel);
+}
+
+botonImagen.addEventListener("click", mostrarImagenCompleta);
+
+function cerrarModal(){
+    modal.style.display = "none";
+}
+
+document.querySelector(".close-modal").addEventListener("click", cerrarModal);
+modal.addEventListener("click", cerrarModal);
 
 document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());

@@ -1,25 +1,132 @@
-
+                        
 body {
     height: 100vh;
     background-color: rgb(80, 12, 143);
 }
 
+header{
+    border-radius: 25px;
+    background-color: blueviolet;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 10px 5px 23px 5px rgba(0, 0, 0, 0.6), -15px 5px 13px rgba(0, 0, 0, 0.3);
+}
+
+#titulo-nivel{
+    color: white;
+    font-size: 250%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px;
+    margin-left: 40px;
+}
+
 .main {
     max-width: 100%;
     max-height: 100%;
-    border: 2px solid blueviolet;
+    
+}
+
+.container-elementos{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+}
+
+.ver-imagen{
+    display: inline-block;
+    margin-right: 40px;
+    width: 215px;
+    height: 65px;
+    border-radius: 25px;
+    background-color: rgb(157, 69, 240);
+    font-weight: bold;
+    font-size: large;
+    color: rgb(240, 227, 239);
+    cursor: pointer;
+}
+
+.modal-img-completa{
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-container{
+    width: 100%;
+    max-width: 720px; /* ajusta según las necesidades */
+    max-height: 80vh;
+    margin: 0 auto;
+    height: 100vh; /* establece la altura al 100% de la altura de la pantalla */
+    
+    border: 17px solid blueviolet;
+    border-radius: 20px;
+    background-size: 100% 100%;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 80px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: rgba(146, 7, 7, 0.549);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.container-contador{
+    display: inline-block;
+    margin-left: 30px;
+    padding: 3px;
+    background-color: rgba(43, 13, 70, 0.623);
+    border: 2px rgb(136, 76, 192);
+    border-radius: 10px;
+    border-style: inset;
+}
+
+p{
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: 'Lucida Sans Unicode';
+    margin: 10px;
+    display: inline;
+    color: white;
+}
+
+.acertadas{
+    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    display: inline;
+    background-color: black;
+    color: white;
+    font-size: xx-large;
+    font-family: "Cascadia Code";
 }
 
 .container-9x16 {
     position: relative;
     width: 100%;
-    max-width: 720px; /* ajusta según tus necesidades */
-    max-height: 100vh;
+    max-width: 720px; /* ajusta según las necesidades */
+    max-height: 80vh;
     margin: 0 auto;
     height: 100vh; /* establece la altura al 100% de la altura de la pantalla */
-    
-    border: 2px solid red;
-    
+    box-shadow: 10px 5px 23px 5px rgba(0, 0, 0, 0.6), -15px 5px 13px rgba(0, 0, 0, 0.3);
+    border: 17px solid blueviolet;
+    border-radius: 20px;
 }
   
 .container-9x16::before {
@@ -34,7 +141,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
 }
 
 #grid-container {
@@ -45,16 +152,56 @@ body {
 .pieza {
     
     /*background-size: 200% 300%;*/
-    border: 1px solid red;
+    border: 1px solid rgb(125, 21, 223);
     cursor: grab;
     width: 100%;
     height: 100%;
 }
 
 .celda{
-    border: 1px solid sandybrown;
+    border: 1px solid transparent;
 }
 
 .dragging {
     opacity: 0.5;
+}
+
+#container-completado{
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+}
+
+.completado{
+    display: block;
+    
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.247);
+    
+    font-size: 300%;
+    
+    color: aliceblue;
+    font-weight: bolder;
+    font-family: 'Permanent Marker', cursive;
+    text-shadow: 
+                -3px -1px 0 #000,  
+                3px -1px 0 #000,
+                -3px 1px 0 #000,
+                3px 1px 0 #000;
+}
+
+#btn-siguiente-nivel{
+    display: block;
+    align-self: center;
+    width: 50%;
+    height: 200px;
+    font-size: 100px;
+    border-radius: 100px;
+    background-color: greenyellow;
+    
+    cursor: pointer;
 }
