@@ -2,43 +2,25 @@
 <html>
     <head>
         <title>Puzzle</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
         <header>
-            <h2 id="titulo-nivel">Nivel 1</h2>
+            <h2 id="titulo-puzzle">Puzzle</h2>
         </header>
 
-        <div class="main">
-            <div class="container-9x16">
-                <div id="grid-container">
-
-                </div>
-                <div id="container-completado">
-                    <span class="completado">¡COMPLETADO!</span>
-                <button id="btn-siguiente-nivel">►</button>
-                </div>
-            </div>
-            
-            
-            <div class="container-elementos">
-                <div class="container-contador">
-                    <p>Piezas acertadas: </p>
-                    <div class="acertadas"></div>
-                </div>
-                <button class="ver-imagen">Imagen completa</button>
-            </div>
-            
-
-            <div class="modal-img-completa">
-                <div class="modal-container">
-                    <span class="close-modal">&times;</span>
-                </div>
-            </div>
-
-            
-        </div>
+        <main>
+            <button id="btn-nivel1" class="btn-nivel" onclick="redireccionarAlNivel(1)">Nivel Muy Fácil</button>
+            <button id="btn-nivel2" class="btn-nivel" onclick="redireccionarAlNivel(2)">Nivel Fácil</button>
+            <button id="btn-nivel3" class="btn-nivel" onclick="redireccionarAlNivel(3)">Nivel Intermedio</button>
+            <button id="btn-nivel4" class="btn-nivel" onclick="redireccionarAlNivel(4)">Nivel Difícil</button>
+            <button id="btn-nivel5" class="btn-nivel" onclick="redireccionarAlNivel(5)">Nivel Muy Difícil</button>
+        </main>
         
-        <script src="index.js"></script>
+        <script>
+            function redireccionarAlNivel(nivel) {
+                window.location.href = 'puzzle.html?nivel=' + nivel;
+            };
+        </script>
     </body>
 </html>

@@ -5,8 +5,9 @@ let piezasAcertadas;
 let maxPiezasAcertadas = 6;
 let draggingCell = null;
 
-function crearPuzzle(){
-    nivel++;
+function crearPuzzle(nivelParamatro){
+    console.log(nivelParamatro);
+    nivel = nivelParamatro;
     posiciones = [];
     piezasAcertadas = 0;
     maxPiezasAcertadas = nivel*nivel*6;
@@ -59,9 +60,10 @@ function cambiarTituloNivel(nivel){
     document.getElementById("titulo-nivel").innerText = `Nivel ${nivel}`;
 }
 
-function obtenerImagenPuzzleSegunNivel(nivel){
+function obtenerImagenPuzzleSegunNivel(nivelImagen){
     let imagenPuzzle;
-    switch(nivel){
+    console.log(nivelImagen);
+    switch(nivelImagen){
         case 1:
             imagenPuzzle = `url('images/nivel1.jpg')`;
             break;
@@ -257,7 +259,7 @@ function avanzarDeNivel(){
     document.querySelector(".container-9x16").style.borderColor = "blueviolet";
     document.querySelector("#container-completado").style.display = "none";
     //document.getElementById("btn-siguiente-nivel").style.display = "none";
-    crearPuzzle();
+    crearPuzzle(nivel+1);
 }
 
 
@@ -279,4 +281,17 @@ function cerrarModal(){
 document.querySelector(".close-modal").addEventListener("click", cerrarModal);
 modal.addEventListener("click", cerrarModal);
 
-document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener('DOMContentLoaded', function (){
+    const nivelParametro = getQueryParam('nivel');
+            if (nivelParametro !== null) {
+                crearPuzzle(parseInt(nivelParametro, 10));
+            } else {
+                document.getElementById('actionResult').innerText = 'No se recibió ningún valor';
+            }
+});
