@@ -10,7 +10,7 @@ function crearPuzzle(nivelParamatro){
     nivel = nivelParamatro;
     posiciones = [];
     piezasAcertadas = 0;
-    maxPiezasAcertadas = nivel*nivel*6;
+    maxPiezasAcertadas = (nivel+1)*(nivel+2);
 
     cambiarTituloNivel(nivel);
     
@@ -19,25 +19,26 @@ function crearPuzzle(nivelParamatro){
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
 
-    containerGrid.style.gridTemplate =`repeat(${3*nivel}, 1fr) / repeat(${2*nivel}, 1fr)`;
+    containerGrid.style.gridTemplate =`repeat(${2+nivel}, 1fr) / repeat(${1+nivel}, 1fr)`;
     
-    for(let i = 0; i<nivel*3; i++){
-        for(let j = 0; j<nivel*2; j++){
+    for(let i = 0; i<nivel+2; i++){
+        for(let j = 0; j<nivel+1; j++){
             
             const pieza = document.createElement('div');
             pieza.id = `p${i}${j}`;
             pieza.className = 'pieza';
             pieza.style.backgroundImage = imagenPuzzle;
-            pieza.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+            pieza.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
+            console.log(`${(nivel*100)+100}% ${(nivel*100)+200}%`);
             //pieza.setAttribute('style', `backgroun-size: ${nivel*200}% ${nivel*300}%`); 
             
-
+            
             const pos = generarPosicionRandom();
             const posY = Math.floor(pos/10);
             const posX = pos%10;
             pieza.style.backgroundPosition = `${-posX*100}% ${-posY*100}%`;
-            
-
+            console.log(pos);
+            console.log(posY+"-"+posX);
             pieza.setAttribute('draggable', 'true');
             pieza.setAttribute('ondragstart', 'startDrag(event)');
             pieza.setAttribute('ondrop', 'drop(event)');
@@ -83,13 +84,14 @@ function obtenerImagenPuzzleSegunNivel(nivelImagen){
     return imagenPuzzle;
 }
 
-function generarPosicionRandom(){    
-    let pos = Math.floor(Math.random()*2*nivel)  + 10 * Math.floor(Math.random()*3*nivel);
+function generarPosicionRandom(){   
+    console.log(nivel) ;
+    let pos = Math.floor(Math.random()*(1+nivel))  + 10 * Math.floor(Math.random()*(2+nivel));
 
     let i = 0;
     while(i < posiciones.length ){
         if(posiciones[i] === pos){
-            pos = Math.floor(Math.random()*2*nivel)  + 10 * Math.floor(Math.random()*3*nivel);
+            pos = Math.floor(Math.random()*(1+nivel))  + 10 * Math.floor(Math.random()*(2+nivel));
             i = 0;
         }
         else {
@@ -98,7 +100,7 @@ function generarPosicionRandom(){
     }
     
     posiciones.push(pos);
-
+    
     return pos;
 }
 
@@ -189,9 +191,9 @@ function realizarIntercambio(targetCell) {
 
         targetCell.style.backgroundImage = tempBackground;
         targetCell.style.backgroundPosition = tempPosition;
-
-        draggingCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
-        targetCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+        console.log("mismo nivel?: "+ nivel);
+        draggingCell.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
+        targetCell.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
 
         if(!sacadoIncorrecto)
             verificarIntercambio(draggingCell, targetCell);
