@@ -64,9 +64,10 @@ function cambiarTituloNivel(nivel){
 function obtenerImagenPuzzleSegunNivel(nivelImagen){
     let imagenPuzzle;
     console.log(nivelImagen);
-    switch(nivelImagen){
+    imagenPuzzle = `url('images/nivel${nivelImagen}.jpg')`;
+    /*switch(nivelImagen){
         case 1:
-            imagenPuzzle = `url('images/nivel1.jpg')`;
+            
             break;
         case 2:
             imagenPuzzle = `url('images/nivel2.jpg')`;
@@ -79,7 +80,7 @@ function obtenerImagenPuzzleSegunNivel(nivelImagen){
             break;
         default:
             imagenPuzzle = `url('images/nivel5.jpg')`;
-    }
+    }*/
     
     return imagenPuzzle;
 }
