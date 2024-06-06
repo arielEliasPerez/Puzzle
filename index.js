@@ -5,11 +5,12 @@ let piezasAcertadas;
 let maxPiezasAcertadas = 6;
 let draggingCell = null;
 
-function crearPuzzle(){
-    nivel++;
+function crearPuzzle(nivelParamatro){
+    console.log(nivelParamatro);
+    nivel = nivelParamatro;
     posiciones = [];
     piezasAcertadas = 0;
-    maxPiezasAcertadas = nivel*nivel*6;
+    maxPiezasAcertadas = (nivel+1)*(nivel+2);
 
     cambiarTituloNivel(nivel);
     
@@ -18,25 +19,26 @@ function crearPuzzle(){
     const containerGrid = document.getElementById("grid-container");
     containerGrid.innerHTML = '';
 
-    containerGrid.style.gridTemplate =`repeat(${3*nivel}, 1fr) / repeat(${2*nivel}, 1fr)`;
+    containerGrid.style.gridTemplate =`repeat(${2+nivel}, 1fr) / repeat(${1+nivel}, 1fr)`;
     
-    for(let i = 0; i<nivel*3; i++){
-        for(let j = 0; j<nivel*2; j++){
+    for(let i = 0; i<nivel+2; i++){
+        for(let j = 0; j<nivel+1; j++){
             
             const pieza = document.createElement('div');
             pieza.id = `p${i}${j}`;
             pieza.className = 'pieza';
             pieza.style.backgroundImage = imagenPuzzle;
-            pieza.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+            pieza.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
+            console.log(`${(nivel*100)+100}% ${(nivel*100)+200}%`);
             //pieza.setAttribute('style', `backgroun-size: ${nivel*200}% ${nivel*300}%`); 
             
-
+            
             const pos = generarPosicionRandom();
             const posY = Math.floor(pos/10);
             const posX = pos%10;
             pieza.style.backgroundPosition = `${-posX*100}% ${-posY*100}%`;
-            
-
+            console.log(pos);
+            console.log(posY+"-"+posX);
             pieza.setAttribute('draggable', 'true');
             pieza.setAttribute('ondragstart', 'startDrag(event)');
             pieza.setAttribute('ondrop', 'drop(event)');
@@ -56,14 +58,17 @@ function crearPuzzle(){
 }
 
 function cambiarTituloNivel(nivel){
+    console.log("parametro: "+ nivel);
     document.getElementById("titulo-nivel").innerText = `Nivel ${nivel}`;
 }
 
-function obtenerImagenPuzzleSegunNivel(nivel){
+function obtenerImagenPuzzleSegunNivel(nivelImagen){
     let imagenPuzzle;
-    switch(nivel){
+    console.log(nivelImagen);
+    imagenPuzzle = `url('images/nivel${nivelImagen}.jpg')`;
+    /*switch(nivelImagen){
         case 1:
-            imagenPuzzle = `url('images/nivel1.jpg')`;
+            
             break;
         case 2:
             imagenPuzzle = `url('images/nivel2.jpg')`;
@@ -76,18 +81,19 @@ function obtenerImagenPuzzleSegunNivel(nivel){
             break;
         default:
             imagenPuzzle = `url('images/nivel5.jpg')`;
-    }
+    }*/
     
     return imagenPuzzle;
 }
 
-function generarPosicionRandom(){    
-    let pos = Math.floor(Math.random()*2*nivel)  + 10 * Math.floor(Math.random()*3*nivel);
+function generarPosicionRandom(){   
+    console.log(nivel) ;
+    let pos = Math.floor(Math.random()*(1+nivel))  + 10 * Math.floor(Math.random()*(2+nivel));
 
     let i = 0;
     while(i < posiciones.length ){
         if(posiciones[i] === pos){
-            pos = Math.floor(Math.random()*2*nivel)  + 10 * Math.floor(Math.random()*3*nivel);
+            pos = Math.floor(Math.random()*(1+nivel))  + 10 * Math.floor(Math.random()*(2+nivel));
             i = 0;
         }
         else {
@@ -96,7 +102,7 @@ function generarPosicionRandom(){
     }
     
     posiciones.push(pos);
-
+    
     return pos;
 }
 
@@ -187,9 +193,9 @@ function realizarIntercambio(targetCell) {
 
         targetCell.style.backgroundImage = tempBackground;
         targetCell.style.backgroundPosition = tempPosition;
-
-        draggingCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
-        targetCell.style.backgroundSize = `${nivel*200}% ${nivel*300}%`;
+        console.log("mismo nivel?: "+ nivel);
+        draggingCell.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
+        targetCell.style.backgroundSize = `${nivel*100+100}% ${nivel*100+200}%`;
 
         if(!sacadoIncorrecto)
             verificarIntercambio(draggingCell, targetCell);
@@ -257,7 +263,7 @@ function avanzarDeNivel(){
     document.querySelector(".container-9x16").style.borderColor = "blueviolet";
     document.querySelector("#container-completado").style.display = "none";
     //document.getElementById("btn-siguiente-nivel").style.display = "none";
-    crearPuzzle();
+    crearPuzzle(nivel+1);
 }
 
 
@@ -279,4 +285,18 @@ function cerrarModal(){
 document.querySelector(".close-modal").addEventListener("click", cerrarModal);
 modal.addEventListener("click", cerrarModal);
 
-document.addEventListener('DOMContentLoaded', ()=> crearPuzzle());
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener('DOMContentLoaded', function (){
+    const nivelParametro = getQueryParam('nivel');
+            if (nivelParametro !== null) {
+                console.log("parametro: "+ nivelParametro);
+                crearPuzzle(parseInt(nivelParametro, 10));
+            } else {
+                document.getElementById('actionResult').innerText = 'No se recibió ningún valor';
+            }
+});

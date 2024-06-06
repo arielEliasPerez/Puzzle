@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Puzzle</title>
+        <link rel="stylesheet" href="puzzle.css">
+    </head>
+    <body>
+        <header>
+            <h2 id="titulo-nivel">Nivel 1</h2>
+        </header>
+
+        <div class="main">
+            <div class="container-9x16">
+                <div id="grid-container">
+
+                </div>
+                <div id="container-completado">
+                    <span class="completado">¡COMPLETADO!</span>
+                <button id="btn-siguiente-nivel">►</button>
+                </div>
+            </div>
+            
+            
+            <div class="container-elementos">
+                <div class="container-contador">
+                    <p>Piezas acertadas: </p>
+                    <div class="acertadas"></div>
+                </div>
+                <button class="ver-imagen">Imagen completa</button>
+            </div>
+            
+
+            <div class="modal-img-completa">
+                <div class="modal-container">
+                    <span class="close-modal">&times;</span>
+                </div>
+            </div>
+
+            
+        </div>
+        
+        <script src="index.js"></script>
+    </body>
+</html>
