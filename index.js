@@ -58,6 +58,7 @@ function crearPuzzle(nivelParamatro){
 }
 
 function cambiarTituloNivel(nivel){
+    console.log("parametro: "+ nivel);
     document.getElementById("titulo-nivel").innerText = `Nivel ${nivel}`;
 }
 
@@ -293,6 +294,7 @@ function getQueryParam(param) {
 document.addEventListener('DOMContentLoaded', function (){
     const nivelParametro = getQueryParam('nivel');
             if (nivelParametro !== null) {
+                console.log("parametro: "+ nivelParametro);
                 crearPuzzle(parseInt(nivelParametro, 10));
             } else {
                 document.getElementById('actionResult').innerText = 'No se recibió ningún valor';
